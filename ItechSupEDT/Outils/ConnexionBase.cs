@@ -31,7 +31,7 @@ namespace ItechSupEDT.Outils
         private ConnexionBase()
         {
             this.Conn = new SqlConnection();
-            Conn.ConnectionString = "Data Source=DESKTOP-7DO6T7D\COURS_SQL;Integrated Security=SSPI;Initial Catalog=gestionemploidutemps";
+            Conn.ConnectionString = "Data Source=DESKTOP-7DO6T7D\\COURS_SQL;Integrated Security=SSPI;Initial Catalog=gestionemploidutemps";
             Conn.Open();
         }
     }
