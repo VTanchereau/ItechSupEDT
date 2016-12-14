@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Modele;
+using ItechSupEDT.Outils;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -28,25 +31,51 @@ namespace ItechSupEDT.Ajout_UC
 
         private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
         {
+
             String nom = tb_nomFormation.Text;
             String nbHeures = tb_dureeFormation.Text;
-            try
-            {
-                float duree = Single.Parse(nbHeures);
+                float duree = float.Parse(nbHeures);
+                Formation formation = new Formation(nom, duree);
                 try
                 {
-                    //Formation formation = new Formation(nom, duree, lstMatiere);
+                    AjouterFormation(formation);
                 }
                 catch(Formation.FormationException error)
                 {
                     tbk_errorMessage.Text = error.Message;
                 }       
-            }
-            catch(Exception)
-            {
-                tbk_errorMessage.Text = "Désolé, une erreur est survenu lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
-            }
-            
         }
+
+        public void AjouterFormation( Formation formation)
+        {
+            //Guid code, string nom, char sexe, string couleur, string race, string espece, Guid codeCli,
+            //           string tatoo, string texte, byte arch
+
+            SqlConnection cnx = null;
+
+            try
+            {
+                cnx = Connexion.getInstance().SQL_CNX;
+                //IDbCommand cmd = cnx.SQL_CNX.CreateCommand();
+                SqlCommand cmd = cnx.CreateCommand();
+                cmd.CommandText = " INSERT INTO dbo.Formation(nom, nbHeures) VALUES ('"+formation.Nom+"','"+formation.NbHeuresTotal+"');";
+                cnx.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception error)
+            {
+                tbk_errorMessage.Text = error.Message;
+            }
+            finally
+            {
+                if (cnx != null && cnx.State != ConnectionState.Closed && cnx.State != ConnectionState.Broken)
+                    cnx.Close();
+            }
+        }
+        
+
+
+       
+
     }
 }
