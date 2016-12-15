@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Modele;
+using System.Data.SqlClient;
+using ItechSupEDT.Outils;
+using System.Data;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -38,22 +41,36 @@ namespace ItechSupEDT.Ajout_UC
 
         private void btn_valider_Click(object sender, RoutedEventArgs e)
         {
+            String nom = tb_nomMatiere.Text;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = ConnexionBase.GetInstance().Conn;
+
             if (this.tb_nomMatiere.Text == "")
             {
                 this.tbk_error.Text = "Le nom de la matière est vide.";
                 this.tbk_error.Visibility = Visibility.Visible;
                 return;
             }
-            if (tbk_error.Text != "")
+            else
             {
                 this.tbk_error.Text = "";
                 this.tbk_error.Visibility = Visibility.Collapsed;
+
+
+                string requete = "INSERT INTO Matiere(nom) VALUES('" + nom + "')";
+                Console.WriteLine(requete);
+                cmd.CommandText = requete;
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteReader();
+                this.LstMatiere.Add(new Matiere(this.tb_nomMatiere.Text));
+                this.tb_nomMatiere.Text = "";
+                this.tbk_retourMessage.Text = "Matière Ajoutée";
+                this.sp_Ajout.Visibility = Visibility.Collapsed;
+                this.sp_valider.Visibility = Visibility.Visible;
             }
-            this.LstMatiere.Add(new Matiere(this.tb_nomMatiere.Text));
-            this.tb_nomMatiere.Text = "";
-            this.tbk_retourMessage.Text = "Matière Ajoutée";
-            this.sp_Ajout.Visibility = Visibility.Collapsed;
-            this.sp_valider.Visibility = Visibility.Visible;
+
+
+
         }
         private void btn_nouveau_Click(object sender, RoutedEventArgs e)
         {

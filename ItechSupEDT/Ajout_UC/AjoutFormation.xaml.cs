@@ -27,45 +27,69 @@ namespace ItechSupEDT.Ajout_UC
         public AjoutFormation()
         {
             InitializeComponent();
+            this.sp_valider.Visibility = Visibility.Collapsed;
         }
+
         public AjoutFormation(Formation _formation)
         {
             InitializeComponent();
             tb_nomFormation.Text = _formation.Nom;
             tb_dureeFormation.Text = _formation.NbHeuresTotal.ToString();
         }
+
         private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
         {
-
             String nom = tb_nomFormation.Text;
-            String nbHeures = tb_dureeFormation.Text;
-            try
+            String nbHeures = tb_dureeFormation.Text;            
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = ConnexionBase.GetInstance().Conn;
+            String message_informations = "";
+            bool erreurSaisie = false;
+                
+            if(nom == "")
             {
-                float duree = Single.Parse(nbHeures);
+                message_informations += "Veuillez renseigner le nom de la formation\n";
+                erreurSaisie = true;
+
+            }
+            if(nbHeures == "")
+            {
+                message_informations += "Veuillez renseigner le nombre d'heures\n";
+                erreurSaisie = true;
+            }
+
+            if (erreurSaisie)
+            {
+                tbk_errorMessage.Text = message_informations;
+            }
+            else
+            {
                 try
                 {
                     //Formation formation = new Formation(nom, duree, lstMatiere);
+                    string requete = "INSERT INTO Formation(nom,nbHeureTotale) VALUES('" + nom + "'," + nbHeures + ")";
+                    Console.WriteLine(requete);
+                    cmd.CommandText = requete;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteReader();
+                    this.tbk_retourMessage.Text = "Formation Ajoutée";
+                    this.sp_Ajout.Visibility = Visibility.Collapsed;
+                    this.sp_valider.Visibility = Visibility.Visible;
                 }
-                catch (Formation.FormationException error)
+                catch (Exception)
                 {
-                    tbk_errorMessage.Text = error.Message;
+                    tbk_errorMessage.Text = "Désolé, une erreur est survenu lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
                 }
-            }
-            catch (Exception)
-            {
-                tbk_errorMessage.Text = "Désolé, une erreur est survenu lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
-            }
+            } 
 
 
-            SqlCommand cmd = new SqlCommand();
-            /*SqlConnection conn = ConnexionBase.GetInstance().Conn;
-              cmd.Connection = conn;*/
-            cmd.Connection = ConnexionBase.GetInstance().Conn;
-            string requete = "INSERT INTO Formation(nom,nbHeureTotale) VALUES('"+ nom+"'," + nbHeures + ")";
-            Console.WriteLine(requete);
-            cmd.CommandText = requete;
-            cmd.CommandType = CommandType.Text;
-            cmd.ExecuteReader();
+
+        }
+        private void btn_nouveau_Click(object sender, RoutedEventArgs e)
+        {
+            this.sp_valider.Visibility = Visibility.Collapsed;
+            this.sp_Ajout.Visibility = Visibility.Visible;
         }
     }
 }
+
