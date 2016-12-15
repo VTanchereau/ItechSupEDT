@@ -35,8 +35,8 @@ namespace ItechSupEDT.Ajout_UC
         private void btn_valider_Click(object sender, RoutedEventArgs e)
         {
             String nom = tb_nomMatiere.Text;
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = ConnexionBase.GetInstance().Conn;
+           /* SqlCommand cmd = new SqlCommand();
+            cmd.Connection = ConnexionBase.GetInstance().Conn;*/
 
             if (this.tb_nomMatiere.Text == "")
             {
@@ -49,12 +49,12 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_error.Text = "";
                 this.tbk_error.Visibility = Visibility.Collapsed;
 
-
-                string requete = "INSERT INTO Matiere(nom) VALUES('" + nom + "')";
+                MatiereDAO.creerMatiere(nom);
+               /* string requete = "INSERT INTO Matiere(nom) VALUES('" + nom + "')";
                 Console.WriteLine(requete);
                 cmd.CommandText = requete;
                 cmd.CommandType = CommandType.Text;
-                cmd.ExecuteReader();
+                cmd.ExecuteReader();*/
                 this.tb_nomMatiere.Text = "";
                 this.tbk_retourMessage.Text = "Matière Ajoutée";
                 this.sp_Ajout.Visibility = Visibility.Collapsed;

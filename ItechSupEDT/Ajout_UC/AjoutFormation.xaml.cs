@@ -83,7 +83,7 @@ namespace ItechSupEDT.Ajout_UC
                     this.sp_Ajout.Visibility = Visibility.Collapsed;
                     this.sp_valider.Visibility = Visibility.Visible;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     tbk_errorMessage.Text = "Désolé, une erreur est survenue lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
                 }
