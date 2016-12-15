@@ -25,13 +25,14 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutFormateur : UserControl
     {
-        public AjoutFormateur()
+
+        public AjoutFormateur(List<Nameable> _lstMatiere)
         {
             InitializeComponent();
-            List<MultiSelectedObject> _lstMatiere =null;
+          
             foreach (Matiere mat in ChargerMatieres())
             {
-                _lstMatiere.Add((MultiSelectedObject)mat);
+                _lstMatiere.Add((Nameable)mat);
             }
                 
             MutliSelectPickList multiSelect = new MutliSelectPickList(_lstMatiere);

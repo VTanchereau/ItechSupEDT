@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ItechSupEDT.Modele
 {
-    public class Eleve : MultiSelectedObject
+    public class Eleve : Nameable
     {
         private String nom;
         private String prenom;
@@ -51,7 +51,7 @@ namespace ItechSupEDT.Modele
         {
             return this.LstAbsences.Count;
         }
-        string MultiSelectedObject.getNom()
+        string Nameable.getNom()
         {
             return this.Nom;
         }
