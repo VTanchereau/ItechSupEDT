@@ -15,8 +15,8 @@ namespace ItechSupEDT.Outils
         {
             SqlCommand insertFormation = new SqlCommand();
             insertFormation.Connection = ConnexionBase.GetInstance().Conn;
-     
-            insertFormation.CommandText = "INSERT INTO formation (nom, nbHeureTotale) VALUES (@nom,@nbHeureTotales)";
+
+            insertFormation.CommandText = "INSERT INTO Formation (nom, nbHeureTotale) VALUES (@nom,@nbHeureTotales); SELECT SCOPE_IDENTITY();";
             insertFormation.CommandType = CommandType.Text;
             insertFormation.Connection = ConnexionBase.GetInstance().Conn;
 
@@ -29,9 +29,9 @@ namespace ItechSupEDT.Outils
             insertFormation.Parameters.Add(nomParam);
             insertFormation.Parameters.Add(nbHeureTotaleParam);
 
-            insertFormation.ExecuteReader();
+            SqlDataReader reader = insertFormation.ExecuteReader();
 
-            Formation nouvelleFormation = new Formation(nom,nbHeureTotales);
+            Formation nouvelleFormation = new Formation(id,nom,nbHeureTotales);
             return nouvelleFormation;
         }
 

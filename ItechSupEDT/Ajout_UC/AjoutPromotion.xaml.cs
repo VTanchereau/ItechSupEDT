@@ -55,35 +55,17 @@ namespace ItechSupEDT.Ajout_UC
              dp_dateDebut
              dp_dateFin
              cb_lstFormations*/
+         
 
             if (!(tb_nom.Text == "" || dp_dateDebut.Text =="" ||dp_dateFin.Text =="" || cb_lstFormations.Text ==""))
             {
+                string nom = tb_nom.Text;
+                DateTime? dateDebut = dp_dateDebut.SelectedDate;
+                DateTime? dateFin = dp_dateFin.SelectedDate;
+             
                 try
                 {
-                    SqlCommand insertPromotion = new SqlCommand();
-                    insertPromotion.CommandText = "INSERT INTO Promotion (nom,dateDebut,dateFin,formation_id) VALUES (@nom,@dateDebut, @dateFin,@formationId)";
-                    insertPromotion.CommandType = CommandType.Text;
-                    insertPromotion.Connection = ConnexionBase.GetInstance().Conn;
-
-                    SqlParameter nomParam = new SqlParameter("nom", SqlDbType.VarChar);
-                    nomParam.Value = tb_nom;
-
-                    SqlParameter dateDebutParam = new SqlParameter("dateDebut", SqlDbType.DateTime);
-                    dateDebutParam.Value = dp_dateDebut;
-
-                    SqlParameter dateFinParam = new SqlParameter("dateFin", SqlDbType.DateTime);
-                    dateFinParam.Value = dp_dateFin;
-
-                    SqlParameter formationIdParam = new SqlParameter("formation ID", SqlDbType.Int);
-                    formationIdParam.Value = cb_lstFormations;
-
-
-                    insertPromotion.Parameters.Add(nomParam);
-                    insertPromotion.Parameters.Add(dateDebutParam);
-                    insertPromotion.Parameters.Add(dateFinParam);
-                    insertPromotion.Parameters.Add(formationIdParam);
-
-                    insertPromotion.ExecuteReader();
+                   PromotionDAO.creerPromotion(nom,dateDebut,dateFin,formation_id);
                 }
                 catch (Exception)
                 {
