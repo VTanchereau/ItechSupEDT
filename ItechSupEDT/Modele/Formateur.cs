@@ -46,10 +46,10 @@ namespace ItechSupEDT.Modele
         }
         public Formateur(String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere)
         {
-            if (_lstMatiere.Count < 1)
+            /*if (_lstMatiere.Count < 1)
             {
                 throw new FormateurException("Un formateur doit avoir au moins une matière.");
-            }
+            }*/
             this.Nom = _nom;
             this.Prenom = _prenom;
             this.Mail = _mail;

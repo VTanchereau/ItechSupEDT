@@ -25,9 +25,10 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutFormateur : UserControl
     {
-        public AjoutFormateur(List<MultiSelectedObject> _lstMatiere)
+        public AjoutFormateur()
         {
             InitializeComponent();
+            List<MultiSelectedObject> _lstMatiere =null;
             foreach (Matiere mat in ChargerMatieres())
             {
                 _lstMatiere.Add((MultiSelectedObject)mat);
@@ -53,7 +54,7 @@ namespace ItechSupEDT.Ajout_UC
                 cnx = Connexion.getInstance().SQL_CNX;
                 SqlCommand cmd = cnx.CreateCommand();
                 cmd.CommandText = " INSERT INTO dbo.Formateur(nom,prenom,tel,mail) VALUES ('" + formateur.Nom + "','"
-                                                                                              +  formateur.Prenom+"','"
+                                                                                              + formateur.Prenom+"','"
                                                                                               + formateur.Telephone+"','"
                                                                                               + formateur.Mail+"'); ";
                 cnx.Open();
@@ -98,9 +99,6 @@ namespace ItechSupEDT.Ajout_UC
 
                 SqlCommand cmd = cnx.CreateCommand();
                 cmd.CommandText = "SELECT id, nom FROM dbo.Matiere";
-                cnx.Open();
-               // cmd.ExecuteReader();
-
                 IDataReader lecteur = cmd.ExecuteReader();
                 while (lecteur.Read())
                 {
@@ -114,12 +112,11 @@ namespace ItechSupEDT.Ajout_UC
 
                     listeMatieres.Add(new Matiere(nom));
                 }
-            }
-            finally
+            }catch(Exception e)
             {
-                if (cnx != null && cnx.State != ConnectionState.Closed && cnx.State != ConnectionState.Broken)
-                    cnx.Close();
+                throw new Exception(e.Message);
             }
+           
             return listeMatieres;
         }
 
