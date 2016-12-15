@@ -16,6 +16,7 @@ using ItechSupEDT.Modele;
 using ItechSupEDT.Outils;
 using System.Data.SqlClient;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -24,6 +25,7 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutFormation : UserControl
     {
+     
         public AjoutFormation()
         {
             InitializeComponent();
@@ -39,24 +41,34 @@ namespace ItechSupEDT.Ajout_UC
 
         private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
         {
-            String nom = tb_nomFormation.Text;
-            String nbHeures = tb_dureeFormation.Text;            
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = ConnexionBase.GetInstance().Conn;
-            String message_informations = "";
-            bool erreurSaisie = false;
-                
-            if(nom == "")
+           string nom = tb_nomFormation.Text;
+           string nbHeuresStr = tb_dureeFormation.Text;
+           float nbHeures;
+           string message_informations = "";
+           bool erreurSaisie = false;
+           
+
+
+            if (nom == "")
             {
                 message_informations += "Veuillez renseigner le nom de la formation\n";
                 erreurSaisie = true;
 
             }
-            if(nbHeures == "")
+       
+            if (nbHeuresStr == "")
             {
+                
                 message_informations += "Veuillez renseigner le nombre d'heures\n";
                 erreurSaisie = true;
+
             }
+            else if(!float.TryParse(nbHeuresStr,out nbHeures))
+            {
+                message_informations += "Format heure incorrect, veuillez-saisir un nombre";
+                erreurSaisie = true;
+            }
+     
 
             if (erreurSaisie)
             {
@@ -66,19 +78,14 @@ namespace ItechSupEDT.Ajout_UC
             {
                 try
                 {
-                    //Formation formation = new Formation(nom, duree, lstMatiere);
-                    string requete = "INSERT INTO Formation(nom,nbHeureTotale) VALUES('" + nom + "'," + nbHeures + ")";
-                    Console.WriteLine(requete);
-                    cmd.CommandText = requete;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteReader();
+                    FormationDAO.creerFormation(nom, float.Parse(nbHeuresStr));
                     this.tbk_retourMessage.Text = "Formation Ajoutée";
                     this.sp_Ajout.Visibility = Visibility.Collapsed;
                     this.sp_valider.Visibility = Visibility.Visible;
                 }
                 catch (Exception)
                 {
-                    tbk_errorMessage.Text = "Désolé, une erreur est survenu lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
+                    tbk_errorMessage.Text = "Désolé, une erreur est survenue lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
                 }
             } 
 

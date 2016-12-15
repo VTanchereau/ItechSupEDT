@@ -21,7 +21,7 @@
             <StackPanel MinWidth="50"/>
         </DockPanel>
         <DockPanel LastChildFill="True" Margin="5">
-            <TextBlock DockPanel.Dock="Left">ail du formateur :</TextBlock>
+            <TextBlock DockPanel.Dock="Left">Mail du formateur :</TextBlock>
             <TextBox DockPanel.Dock="Right" x:Name="tb_mailFormateur" MinWidth="150"/>
             <StackPanel MinWidth="50"/>
         </DockPanel>
