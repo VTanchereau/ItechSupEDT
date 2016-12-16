@@ -14,7 +14,7 @@ namespace ItechSupEDT.Outils
         public static Promotion creerPromotion(string nom, DateTime dateDebut, DateTime dateFin, Formation formation)
         {
             SqlCommand insertPromotion = new SqlCommand();
-            insertPromotion.CommandText = "INSERT INTO Promotion (nom,dateDebut,dateFin,formation_id) VALUES (@nom,@dateDebut, @dateFin,@formationId)";
+            insertPromotion.CommandText = "INSERT INTO Promotion (nom,dateDebut,dateFin,formation_id) VALUES (@nom,@dateDebut, @dateFin,@formationId);SELECT SCOPE_IDENTITY();";
             insertPromotion.CommandType = CommandType.Text;
             insertPromotion.Connection = ConnexionBase.GetInstance().Conn;
 

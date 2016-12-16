@@ -51,14 +51,17 @@ namespace ItechSupEDT.Ajout_UC
             if (!(tb_nom.Text == "" || dp_dateDebut.Text =="" ||dp_dateFin.Text =="" || cb_lstFormations.Text ==""))
             {
                 string nom = tb_nom.Text;
-                DateTime? dateDebut = dp_dateDebut.SelectedDate;
-                DateTime? dateFin = dp_dateFin.SelectedDate;
-             
+                DateTime dateDebut = (DateTime) dp_dateDebut.SelectedDate;
+                DateTime dateFin = (DateTime)dp_dateFin.SelectedDate;
+                Formation formation = (Formation)cb_lstFormations.SelectedItem;
+
+
+
                 try
                 {
-                  
+                    PromotionDAO.creerPromotion(nom,dateDebut,dateFin,formation);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     tbk_errorMessage.Text = "Désolé, une erreur est survenue lors de l'ajout de la promotion, veuillez vérifier les informations renseignées et recommencer.";
                 }
