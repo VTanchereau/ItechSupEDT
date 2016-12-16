@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItechSupEDT.Modele;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace ItechSupEDT.Outils
 {
     class PromotionDAO
     {
-        public static PromotionDAO(string nom, DateTime dateDebut, DateTime dateFin, int formation_id)
+        public static Promotion creerPromotion(string nom, DateTime dateDebut, DateTime dateFin, Formation formation)
         {
             SqlCommand insertPromotion = new SqlCommand();
             insertPromotion.CommandText = "INSERT INTO Promotion (nom,dateDebut,dateFin,formation_id) VALUES (@nom,@dateDebut, @dateFin,@formationId)";
@@ -26,17 +27,25 @@ namespace ItechSupEDT.Outils
             SqlParameter dateFinParam = new SqlParameter("dateFin", SqlDbType.DateTime);
             dateFinParam.Value = dateFin;
 
-            SqlParameter formationIdParam = new SqlParameter("formation_id", SqlDbType.Int);
-            formationIdParam.Value = formation_id;
-;
+            SqlParameter formationIdParam = new SqlParameter("formationId", SqlDbType.Int); // même nom entre values et le SqlParameter
+            formationIdParam.Value = formation.Id;
 
 
-        insertPromotion.Parameters.Add(nomParam);
+
+            insertPromotion.Parameters.Add(nomParam);
             insertPromotion.Parameters.Add(dateDebutParam);
             insertPromotion.Parameters.Add(dateFinParam);
             insertPromotion.Parameters.Add(formationIdParam);
 
-            insertPromotion.ExecuteReader();
+      
+
+            SqlDataReader reader = insertPromotion.ExecuteReader();
+            reader.Read();
+            int id = (int)reader.GetDecimal(0);
+
+
+            Promotion nouvellePromotion = new Promotion(id, nom, dateDebut, dateFin, formation);
+            return nouvellePromotion;
         }
     }
 }

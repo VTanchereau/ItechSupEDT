@@ -31,7 +31,7 @@ namespace ItechSupEDT.Ajout_UC
             get { return this.lstFormations; }
             set { this.lstFormations = value; }
         }
-        public AjoutPromotion(List<Formation> _lstFormations, List<MultiSelectedObject> _lstEleve)
+        public AjoutPromotion(List<Formation> _lstFormations)
         {
             InitializeComponent();
 
@@ -45,8 +45,7 @@ namespace ItechSupEDT.Ajout_UC
                 this.cb_lstFormations.ItemsSource = this.LstFormations.Keys;
                 this.cb_lstFormations.SelectedIndex = 0;
             }
-            MutliSelectPickList multiSelect = new MutliSelectPickList(_lstEleve);
-            this.MultiSelect.Content = multiSelect;
+       
         }
 
         private void btn_valider_Click(object sender, RoutedEventArgs e)
@@ -65,7 +64,7 @@ namespace ItechSupEDT.Ajout_UC
              
                 try
                 {
-                   PromotionDAO.creerPromotion(nom,dateDebut,dateFin,formation_id);
+                  
                 }
                 catch (Exception)
                 {

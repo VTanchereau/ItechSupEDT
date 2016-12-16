@@ -30,7 +30,9 @@ namespace ItechSupEDT.Outils
             insertFormation.Parameters.Add(nbHeureTotaleParam);
 
             SqlDataReader reader = insertFormation.ExecuteReader();
-
+            reader.Read();
+            int id = (int)reader.GetDecimal(0);
+            reader.Read();
             Formation nouvelleFormation = new Formation(id,nom,nbHeureTotales);
             return nouvelleFormation;
         }

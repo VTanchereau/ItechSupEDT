@@ -125,6 +125,7 @@
     <Compile Include="Outils\ConnexionBase.cs" />
     <Compile Include="Outils\FormationDAO.cs" />
     <Compile Include="Outils\MatiereDAO.cs" />
+    <Compile Include="Outils\PromotionDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
