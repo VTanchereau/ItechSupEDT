@@ -23,12 +23,12 @@
                 <TextBlock Text="Date de fin :" Margin="10,10,0,10"/>
                 <DatePicker x:Name="dp_dateFin" Margin="10,10,0,10"/>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Height="57" Margin="32,0,24,0" Width="242">
                 <TextBlock Text="Formation :" Margin="10,10,0,10"/>
-                <ComboBox x:Name="cb_lstFormations" Margin="10,10,0,10"/>
+                <ComboBox x:Name="cb_lstFormations" Margin="10,10,0,20" DisplayMemberPath="Nom" Width="100"/>
             </StackPanel>
             <ContentControl x:Name="MultiSelect"/>
-            <Button x:Name="btn_valider" Content="Valider" Width="100" Click="btn_valider_Click" Margin="99,0" VerticalAlignment="Bottom"/>
+            <Button x:Name="btn_valider" Content="Valider" Width="100" Click="btn_valider_Click" Margin="99,0" VerticalAlignment="Bottom" Height="21"/>
 
         </StackPanel>
 

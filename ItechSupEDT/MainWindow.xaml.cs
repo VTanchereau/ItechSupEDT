@@ -43,7 +43,7 @@ namespace ItechSupEDT
         private void mi_ajout_promotion_Click(object sender, RoutedEventArgs e)
         {
             List<MultiSelectedObject> lstEleves = new List<MultiSelectedObject>();
-            AjoutPromotion ajoutPromotion = new AjoutPromotion(new List<Formation>(), lstEleves);
+            AjoutPromotion ajoutPromotion = new AjoutPromotion();
             this.Ajout.Content = ajoutPromotion;
         }
 

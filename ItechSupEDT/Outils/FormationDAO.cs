@@ -37,5 +37,47 @@ namespace ItechSupEDT.Outils
             return nouvelleFormation;
         }
 
+        public static List<Formation> ListerFormation()
+        {
+            SqlCommand listerFormation = new SqlCommand();
+            listerFormation.Connection = ConnexionBase.GetInstance().Conn;
+            listerFormation.CommandText = "SELECT id, nom, nbHeureTotale FROM Formation";
+            SqlDataReader reader = listerFormation.ExecuteReader();
+
+            List<Formation> listeFormation = new List<Formation>();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id;
+                    string nom;
+                    float nbHeureTotale;
+                    
+                     
+                    id = reader.GetInt32(0);
+                    nom = reader.GetString(1);
+                    if (!reader.IsDBNull(2))
+                    {
+                        nbHeureTotale = reader.GetFloat(2);
+                    }
+                    else
+                    {
+                        nbHeureTotale = 0;
+                    }
+
+                
+
+
+                    Formation formation = new Formation(id, nom, (float) nbHeureTotale);
+                    listeFormation.Add(formation);
+                      
+                }
+            }
+
+            return listeFormation;
+
+        }
+
     }
 }

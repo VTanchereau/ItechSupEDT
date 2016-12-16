@@ -31,20 +31,12 @@ namespace ItechSupEDT.Ajout_UC
             get { return this.lstFormations; }
             set { this.lstFormations = value; }
         }
-        public AjoutPromotion(List<Formation> _lstFormations)
+        public AjoutPromotion()
         {
             InitializeComponent();
 
-            this.LstFormations = new Dictionary<string, Formation>();
-            if (_lstFormations.Count > 0)
-            {
-                foreach (Formation formation in _lstFormations)
-                {
-                    this.LstFormations.Add(formation.Nom, formation);
-                }
-                this.cb_lstFormations.ItemsSource = this.LstFormations.Keys;
-                this.cb_lstFormations.SelectedIndex = 0;
-            }
+            this.cb_lstFormations.ItemsSource = FormationDAO.ListerFormation();
+            
        
         }
 
