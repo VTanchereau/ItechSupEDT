@@ -11,6 +11,14 @@ namespace ItechSupEDT.Modele
         private String nom;
         private int capacite;
         private List<Session> lstSessions;
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         public String Nom
         {
             get { return this.nom; }
@@ -26,7 +34,7 @@ namespace ItechSupEDT.Modele
             get { return this.lstSessions; }
             set { this.lstSessions = value; }
         }
-        public Salle(String _nom, int _capacite)
+        public Salle(String _nom, int _capacite, int id = 0)
         {
             this.Nom = _nom;
             this.Capacite = _capacite;

@@ -32,7 +32,8 @@
         </DockPanel>
         <ContentControl x:Name="MultiSelect"/>
         <StackPanel Margin="5">
-            <Button x:Name="btn_ajoutFormation" Content="Ajouter" Width="100" Click="btn_ajoutFormation_Click"/>
+            <Button x:Name="btn_ajoutFormateur" Content="Ajouter" Width="100" Click="btn_ajoutFormateur_Click"/>
         </StackPanel>
+       
     </StackPanel>
 </UserControl>

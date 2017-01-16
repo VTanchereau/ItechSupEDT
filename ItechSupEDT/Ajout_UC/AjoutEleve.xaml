@@ -6,7 +6,26 @@
              xmlns:local="clr-namespace:ItechSupEDT.Ajout_UC"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel>
+            <TextBlock Text="Ajouter un élève" HorizontalAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Nom :" Margin="10,10,0,10"/>
+                <TextBox x:Name="tb_nom" Height="23" TextWrapping="Wrap"  Width="120" Margin="10,10,10,10"/>
+            </StackPanel>
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Prenom :" Margin="10,10,0,10"/>
+                <TextBox x:Name="tb_prenom" Height="23" TextWrapping="Wrap"  Width="120" Margin="10,10,24,10"/>
+            </StackPanel>
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Mail :" Margin="10,10,0,10"/>
+                <TextBox x:Name="tb_mail" Height="23" TextWrapping="Wrap"  Width="120" Margin="10,10,8,10"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Promotion :" Margin="10,10,0,10"/>
+                <ComboBox x:Name="cb_lstPromotions" Margin="10,10,0,10"/>
+            </StackPanel>
+            <Button Content="Ajouter" x:Name="btn_ajout" Width="80" Click="btn_ajout_Click"></Button>
+        </StackPanel>
+    </Border>
 </UserControl>

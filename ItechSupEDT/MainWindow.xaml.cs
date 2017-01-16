@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Ajout_UC;
 using ItechSupEDT.Modele;
+using ItechSupEDT.Outils;
 
 namespace ItechSupEDT
 {
@@ -42,15 +43,22 @@ namespace ItechSupEDT
 
         private void mi_ajout_promotion_Click(object sender, RoutedEventArgs e)
         {
-            List<Nameable> lstEleves = new List<Nameable>();
-            AjoutPromotion ajoutPromotion = new AjoutPromotion(new List<Formation>(), lstEleves);
+            //List<Nameable> lstEleves = new List<Nameable>();
+            List<Formation> lstFormations = DataLoader.ChargerFormations();
+            AjoutPromotion ajoutPromotion = new AjoutPromotion(lstFormations);
             this.Ajout.Content = ajoutPromotion;
         }
 
         private void mi_ajout_formateur_Click(object sender, RoutedEventArgs e)
         {
-            List<Nameable> lstMatiere = new List<Nameable>();
-            AjoutFormateur ajoutFormateur = new AjoutFormateur(lstMatiere);
+           // List<Matiere> lstMatieres = ;
+            List<Nameable> Nameable_lstMatiere = new List<Nameable>();
+            foreach (Matiere mat in DataLoader.ChargerMatieres())
+            {
+                Nameable_lstMatiere.Add((Nameable)mat);
+            }
+            
+            AjoutFormateur ajoutFormateur = new AjoutFormateur(Nameable_lstMatiere);
             this.Ajout.Content = ajoutFormateur;
         }
 
@@ -68,6 +76,38 @@ namespace ItechSupEDT
             Matiere matiere = new Modele.Matiere("NomMatiere");
             Ajout_UC.AjoutMatiere ajoutMatiere = new Ajout_UC.AjoutMatiere(matiere);
             this.Ajout.Content = ajoutMatiere;
+        }
+
+        private void mi_ajout_eleve_Click(object sender, RoutedEventArgs e)
+        {
+            List<Promotion> lstPromotions = DataLoader.ChargerPromotions();
+            AjoutEleve ajoutPromotion = new AjoutEleve(lstPromotions);
+            this.Ajout.Content = ajoutPromotion;
+        }
+
+        private void mi_ajout_salle_Click(object sender, RoutedEventArgs e)
+        {
+            AjoutSalle ajoutFormation = new AjoutSalle();
+            this.Ajout.Content = ajoutFormation;
+        }
+
+        private void mi_ajout_cours_Click(object sender, RoutedEventArgs e)
+        {
+            List<Nameable> Nameable_lstMatiere = new List<Nameable>();
+            foreach (Matiere mat in DataLoader.ChargerMatieres())
+            {
+                Nameable_lstMatiere.Add((Nameable)mat);
+            }
+
+            List<Promotion> lstPromotions = DataLoader.ChargerPromotions();
+            List<Formateur> lstFormateurs = DataLoader.ChargerFormateurs();
+            List<Salle> lstSalles = DataLoader.ChargerSalle();
+
+            AjoutCours ajoutCours = new AjoutCours(Nameable_lstMatiere);
+            this.Ajout.Content = ajoutCours;
+
+            
+            
         }
     }
 }

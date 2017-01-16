@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace ItechSupEDT.Modele
 {
-    public class Promotion : Destinataire
+    public class Promotion : Destinataire, Nameable
     {
         private String nom;
         private DateTime dateDebut;
         private DateTime dateFin;
         private List<Eleve> lstEleves;
-        private Formation formation;
+        private int id_Formation;
         private List<Session> lstSessions;
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public String Nom
         {
             get { return this.nom; }
@@ -32,39 +40,36 @@ namespace ItechSupEDT.Modele
         public List<Eleve> LstEleves
         {
             get { return this.lstEleves; }
-            set { this.lstEleves = value; }
+            set {
+                if (this.lstEleves.Count == 24)
+                {
+                    throw new PromotionException("La promotion est complète");
+                }
+                this.lstEleves = value;
+                }
         }
-        public Formation Formation
+        public int Id_Formation
         {
-            get { return this.formation; }
-            set { this.formation = value; }
+            get { return id_Formation; }
+            set { id_Formation = value; }
         }
         public List<Session> LstSessions
         {
             get { return this.lstSessions; }
             set { this.lstSessions = value; }
         }
-        public Promotion(String _nom, DateTime _dateDebut, DateTime _dateFin, List<Eleve> _lstEleves, Formation _formation)
+        public Promotion(String _nom, DateTime _dateDebut, DateTime _dateFin, int idformation, int id = 0)
         {
-            if (_lstEleves.Count < 2)
-            {
-                throw new PromotionException("Une promotion doit avoir au moins deux élèves");
-            }
             this.Nom = _nom;
             this.DateDebut = _dateDebut;
             this.DateFin = _dateFin;
-            this.Formation = _formation;
-            this.LstSessions = new List<Session>();
-            this.LstEleves = _lstEleves;
+            this.Id_Formation = idformation;
+            this._id = id;
+           // this.LstSessions = new List<Session>();
+          
         }
-        public void AddEleve(Eleve eleve)
-        {
-            if (this.LstEleves.Count > 24)
-            {
-                throw new PromotionException("La promotion est complète");
-            }
-            this.LstEleves.Add(eleve);
-        }
+
+       
         public bool EstDisponible(DateTime _dateDebut, DateTime _dateFin)
         {
             bool disponible = true;
@@ -91,6 +96,12 @@ namespace ItechSupEDT.Modele
             }
             return lstSessions;
         }
+
+        public string getNom()
+        {
+            return this.nom;
+        }
+
         public class PromotionException : Exception
         {
             public PromotionException(string message) : base(message)

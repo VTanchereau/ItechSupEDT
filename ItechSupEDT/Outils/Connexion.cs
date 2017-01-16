@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -35,8 +36,22 @@ namespace ItechSupEDT.Outils
             _SQLcnx.Open();
         }
 
+      
+        internal static void AjouterParametre(SqlCommand cmd, string nom, object valeur, DbType type, int size = 0)
+        {
+            /*IDbDataParameter param = cmd.CreateParameter();
+            param.ParameterName = nom;
+            param.Value = valeur ?? DBNull.Value;
+            if (size != 0)
+                param.Size = size;
+            param.DbType = type;
+            cmd.Parameters.Add(param);*/
 
-        
            
+        }
+
+
+
+
     }
 }

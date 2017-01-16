@@ -51,16 +51,7 @@ namespace ItechSupEDT.Ajout_UC
         {
             GestionErreurs();
             this.LstMatiere.Add(new Matiere(this.tb_nomMatiere.Text));
-            Matiere matiere = new Matiere(tb_nomMatiere.Text);
-
-            try
-            {
-                AjouterMatiere(matiere);
-            }
-            catch (Formation.FormationException error)
-            {
-                tbk_error.Text = error.Message;
-            }
+            DataInsert.AjouterMatiere(tb_nomMatiere.Text);
 
             this.tb_nomMatiere.Text = "";
             this.tbk_retourMessage.Text = "Matière Ajoutée";
@@ -74,30 +65,7 @@ namespace ItechSupEDT.Ajout_UC
             this.sp_Ajout.Visibility = Visibility.Visible;
         }
 
-        public void AjouterMatiere(Matiere matiere)
-        {
-
-            SqlConnection cnx = null;
-
-            try
-            {
-                cnx = Connexion.getInstance().SQL_CNX;
-                //IDbCommand cmd = cnx.SQL_CNX.CreateCommand();
-                SqlCommand cmd = cnx.CreateCommand();
-                cmd.CommandText = " INSERT INTO dbo.Matiere(nom) VALUES ('" + matiere.Nom + "');";
-                cnx.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception error)
-            {
-                tbk_error.Text = error.Message;
-            }
-            finally
-            {
-                if (cnx != null && cnx.State != ConnectionState.Closed && cnx.State != ConnectionState.Broken)
-                    cnx.Close();
-            }
-        }
+       
 
         private void GestionErreurs()
         {

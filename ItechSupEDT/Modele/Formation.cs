@@ -12,6 +12,15 @@ namespace ItechSupEDT.Modele
         private float nbHeuresTotal;
         private List<Promotion> lstPromotions;
         private List<Matiere> lstMatiere;
+        private int _id;
+
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public String Nom
         {
             get { return this.nom; }
@@ -32,19 +41,21 @@ namespace ItechSupEDT.Modele
             get { return this.lstMatiere; }
             set { this.lstMatiere = value; }
         }
-        public Formation(String _nom, float _nbHeuresTotal)
+        public Formation(String _nom, float _nbHeuresTotal, int id = 0)
         {
+            this._id = id;
             this.Nom = _nom;
             this.NbHeuresTotal = _nbHeuresTotal;
-            this.LstMatiere = new List<Matiere>();
-            this.LstPromotions = new List<Promotion>();
+         
+            //this.LstPromotions = new List<Promotion>();
+
         }
         public Formation(String _nom, float _nbHeuresTotal, List<Matiere> _lstMatiere)
         {
             this.Nom = _nom;
             this.NbHeuresTotal = _nbHeuresTotal;
             this.LstMatiere = _lstMatiere;
-            this.LstPromotions = new List<Promotion>();
+            //this.LstPromotions = new List<Promotion>();
         }
         public class FormationException : Exception
         {

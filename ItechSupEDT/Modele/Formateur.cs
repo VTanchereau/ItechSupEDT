@@ -14,6 +14,14 @@ namespace ItechSupEDT.Modele
         private String telephone;
         private List<Matiere> lstMatiere;
         private List<Session> lstSessions;
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public String Nom
         {
             get { return this.nom; }
@@ -44,7 +52,7 @@ namespace ItechSupEDT.Modele
             get { return this.lstSessions; }
             set { this.lstSessions = value; }
         }
-        public Formateur(String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere)
+        public Formateur(String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere = null, int id =0)
         {
             /*if (_lstMatiere.Count < 1)
             {

@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Ajout_UC\AjoutCours.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ajout_UC\AjoutEleve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Ajout_UC\AjoutSalle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ajout_UC\MutliSelectPickList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +91,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Ajout_UC\AjoutCours.xaml.cs">
+      <DependentUpon>AjoutCours.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ajout_UC\AjoutEleve.xaml.cs">
       <DependentUpon>AjoutEleve.xaml</DependentUpon>
     </Compile>
@@ -97,6 +108,9 @@
     </Compile>
     <Compile Include="Ajout_UC\AjoutPromotion.xaml.cs">
       <DependentUpon>AjoutPromotion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ajout_UC\AjoutSalle.xaml.cs">
+      <DependentUpon>AjoutSalle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ajout_UC\MutliSelectPickList.xaml.cs">
       <DependentUpon>MutliSelectPickList.xaml</DependentUpon>
@@ -123,6 +137,8 @@
     <Compile Include="Modele\Salle.cs" />
     <Compile Include="Modele\Session.cs" />
     <Compile Include="Outils\Connexion.cs" />
+    <Compile Include="Outils\DataInsert.cs" />
+    <Compile Include="Outils\DataLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
