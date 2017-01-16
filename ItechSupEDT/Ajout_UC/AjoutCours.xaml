@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="300">
     <StackPanel Margin="0,0,0,-15">
-        <TextBlock Text="Ajouter un élève" HorizontalAlignment="Center"/>
+        <TextBlock Text="Ajouter une Session" HorizontalAlignment="Center"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Date de début :" Margin="10,10,0,10"/>
             <DatePicker x:Name="dp_dateDebut" Margin="10,10,0,10"/>
@@ -33,5 +33,8 @@
             <ComboBox x:Name="cb_listeMatieres" Margin="10,10,0,10"/>
         </StackPanel>
         <Button Content="Ajouter" x:Name="btn_ajout" Width="80" Click="btn_ajout_Click" Margin="20"></Button>
+        <StackPanel>
+            <TextBlock x:Name="tbk_errorMessage" />
+        </StackPanel>
     </StackPanel>
 </UserControl>
