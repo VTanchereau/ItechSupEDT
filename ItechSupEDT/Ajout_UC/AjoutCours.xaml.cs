@@ -1,18 +1,10 @@
 ﻿using ItechSupEDT.Modele;
+using ItechSupEDT.Outils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -21,51 +13,106 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutCours : UserControl
     {
-        private List<Formateur> lstFormateurs;
-        public List<String, Formateur> LstFormateurs
+        private Dictionary<String, Formateur> _listeNomFormateurs;
+        public Dictionary<String, Formateur> ListeNomFormateurs
         {
-            get { return this.lstFormateurs; }
-            set { this.lstFormateurs = value; }
+            get { return _listeNomFormateurs; }
+            set { _listeNomFormateurs = value; }
         }
 
-        private List<String, Promotion> lstPromotions;
-        public List<String, Promotion> LstPromotions
+        private Dictionary<String, Promotion> _listeNomPromotions;
+        public Dictionary<String, Promotion> ListeNomPromotions
         {
-            get { return this.lstPromotions; }
-            set { this.lstPromotions = value; }
+            get { return _listeNomPromotions; }
+            set { _listeNomPromotions = value; }
         }
 
-        private List<String, Salle> lstSalles;
-        public List<Salle> LstSalles
+        private Dictionary<String, Salle> _listeNomSalles;
+        public Dictionary<String, Salle> ListeNomSalles
         {
-            get { return this.lstSalles; }
-            set { this.lstSalles = value; }
+            get { return _listeNomSalles; }
+            set { _listeNomSalles = value; }
         }
 
-        private List<Salle> lstMatieres;
-        public List<Salle> LstMatieres
+        private Dictionary<String, Matiere> _listeNomMatieres;
+        public Dictionary<String, Matiere> ListeNomMatieres
         {
-            get { return this.lstMatieres; }
-            set { this.lstMatieres = value; }
+            get { return _listeNomMatieres; }
+            set { _listeNomMatieres = value; }
         }
-        
-        public AjoutCours(List<Matiere> lstMatieres, List<Formateur> lstFormateurs, List<Promotion> lstPromotion, List<Salle> lstSalle)
+
+        // constructeur, initialisation et valorisation des listes 
+        public AjoutCours(List<Matiere> lstMatieres, List<Formateur> lstFormateurs, List<Promotion> lstPromotions, List<Salle> lstSalles)
         {
             InitializeComponent();
-            this.lstFormateurs = lstFormateurs;
-            this.lstPromotions = new Dictionary<string, Promotion>();
-            this.lstSalles = new Dictionary<string, Salle>();
-            this.l
+
+            _listeNomPromotions = new Dictionary<String, Promotion>();
+            _listeNomSalles = new Dictionary<String, Salle>();
+            _listeNomMatieres = new Dictionary<String, Matiere>();
+            _listeNomFormateurs = new Dictionary<String, Formateur>();
+
+            Recuperer_InfosListes(lstMatieres, lstFormateurs, lstPromotions, lstSalles);
         }
 
+        //Evenement qui recupere les informations saisies par l'utilisateur et qui les transmet à la Classe chargée d'inserer les données dans la base
         private void btn_ajout_Click(object sender, RoutedEventArgs e)
         {
+            //creation des objets 
+            Promotion promotion = _listeNomPromotions[cb_listePromotions.SelectedItem.ToString()];
+            Matiere matiere = _listeNomMatieres[cb_listeMatieres.SelectedItem.ToString()];
+            Formateur formateur = _listeNomFormateurs[cb_listeFormateurs.SelectedItem.ToString()];
+            Salle salle = _listeNomSalles[cb_listeSalles.SelectedItem.ToString()];
 
+            //verification dans informations puis Insertion dans la base
+            if (!String.IsNullOrEmpty(dp_dateDebut.Text) &&
+               !String.IsNullOrEmpty(dp_dateFin.Text) &&
+               promotion != null && matiere != null && salle != null)
+            {
+                DataInsert.AjouterCours(dp_dateDebut.SelectedDate.Value, dp_dateFin.SelectedDate.Value, promotion, matiere, salle, formateur);
+            }
+            else
+            {
+                tbk_errorMessage.Text ="veuillez renseigner les champs correctement ! ";
+            }
         }
 
-        private void RecupInfosListe()
+        //Recupere les valeurs des listes obtenues à partir de la base de dponnées (dataLoader)
+        private void Recuperer_InfosListes(List<Matiere> listeMatieres, List<Formateur> listeFormateurs, List<Promotion> listePromotions, List<Salle> listeSalles)
         {
+            if (listePromotions.Count > 0 && listeMatieres.Count > 0 && listeSalles.Count > 0 && listeFormateurs.Count > 0)
+            {
+                //valorise la comboBox des promotions
+                foreach (Promotion promotion in listePromotions)
+                {
+                    _listeNomPromotions.Add(promotion.Nom, promotion);
+                }
+                cb_listePromotions.ItemsSource = _listeNomPromotions.Keys;
+                cb_listePromotions.SelectedIndex = 0;
 
+                //valorise la comboBox des Matieres
+                foreach (Matiere matiere in listeMatieres)
+                {
+                    _listeNomMatieres.Add(matiere.Nom, matiere);
+                }
+                cb_listeMatieres.ItemsSource = _listeNomMatieres.Keys;
+                cb_listeMatieres.SelectedIndex = 0; 
+
+                //valorise la comboBox des Salles
+                foreach (Salle salle in listeSalles)
+                {
+                    _listeNomSalles.Add(salle.Nom, salle);
+                }
+                cb_listeSalles.ItemsSource = _listeNomSalles.Keys;
+                cb_listeSalles.SelectedIndex = 0;
+
+                //valorise la comboBox des Formateurs
+                foreach (Formateur formateur in listeFormateurs)
+                {
+                    _listeNomFormateurs.Add(formateur.Nom, formateur);
+                }
+                cb_listeFormateurs.ItemsSource = _listeNomFormateurs.Keys;
+                cb_listeFormateurs.SelectedIndex = 0;
+            }
         }
     }
 }

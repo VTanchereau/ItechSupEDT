@@ -32,13 +32,16 @@ namespace ItechSupEDT.Outils
                     if (!lecteur.IsDBNull(1))
                         nom = lecteur.GetString(1);
 
-                    listeMatieres.Add(new Matiere(nom));
+                    listeMatieres.Add(new Matiere(nom, id));
                 }
+                lecteur.Close();
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
+
+
             return listeMatieres;
         }
 
@@ -49,9 +52,7 @@ namespace ItechSupEDT.Outils
             {
                 cnx = Connexion.getInstance().SQL_CNX;
                 SqlCommand cmd = cnx.CreateCommand();
-
                 cmd.CommandText = "SELECT id, nom, nbHeures FROM dbo.Formation";
-
                 SqlDataReader lecteur = cmd.ExecuteReader();
                 while (lecteur.Read())
                 {
@@ -65,9 +66,10 @@ namespace ItechSupEDT.Outils
                         nom = lecteur.GetString(1);
                     if (!lecteur.IsDBNull(2))
                         nbHeures = (float)lecteur.GetDouble(2);
-                    
+
                     listeFormations.Add(new Formation(nom, nbHeures, id));
                 }
+                lecteur.Close();
             }
             catch (Exception e)
             {
@@ -76,38 +78,38 @@ namespace ItechSupEDT.Outils
             return listeFormations;
         }
 
-      /*  public static List<Eleve> ChargerEleves()
-        {
+        /*  public static List<Eleve> ChargerEleves()
+          {
 
-            List<Eleve> listeEleves = new List<Eleve>();
-            try
-            {
-                cnx = Connexion.getInstance().SQL_CNX;
-                SqlCommand cmd = cnx.CreateCommand();
+              List<Eleve> listeEleves = new List<Eleve>();
+              try
+              {
+                  cnx = Connexion.getInstance().SQL_CNX;
+                  SqlCommand cmd = cnx.CreateCommand();
 
-                cmd.CommandText = "SELECT id, nom FROM dbo.Eleve";
+                  cmd.CommandText = "SELECT id, nom FROM dbo.Eleve";
 
-                SqlDataReader lecteur = cmd.ExecuteReader();
-                while (lecteur.Read())
-                {
-                    int id = 0;
-                    String nom = null;
+                  SqlDataReader lecteur = cmd.ExecuteReader();
+                  while (lecteur.Read())
+                  {
+                      int id = 0;
+                      String nom = null;
 
-                    if (!lecteur.IsDBNull(0))
-                        id = lecteur.GetInt32(0);
-                    if (!lecteur.IsDBNull(1))
-                        nom = lecteur.GetString(1);
+                      if (!lecteur.IsDBNull(0))
+                          id = lecteur.GetInt32(0);
+                      if (!lecteur.IsDBNull(1))
+                          nom = lecteur.GetString(1);
 
-                    // listeEleves.Add(new Eleve(nom));
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+                      // listeEleves.Add(new Eleve(nom));
+                  }
+              }
+              catch (Exception e)
+              {
+                  throw new Exception(e.Message);
+              }
 
-            return listeEleves;
-        }*/
+              return listeEleves;
+          }*/
 
         public static List<Promotion> ChargerPromotions()
         {
@@ -116,9 +118,7 @@ namespace ItechSupEDT.Outils
             {
                 cnx = Connexion.getInstance().SQL_CNX;
                 SqlCommand cmd = cnx.CreateCommand();
-
                 cmd.CommandText = "SELECT id, nom, dateDebut, dateFin, id_formation FROM dbo.Promotion";
-
                 SqlDataReader lecteur = cmd.ExecuteReader();
                 while (lecteur.Read())
                 {
@@ -141,6 +141,8 @@ namespace ItechSupEDT.Outils
 
                     listePromotions.Add(new Promotion(nom, dateDebut, dateFin, id_formation, id));
                 }
+                lecteur.Close();
+
             }
             catch (Exception e)
             {
@@ -157,9 +159,7 @@ namespace ItechSupEDT.Outils
             {
                 cnx = Connexion.getInstance().SQL_CNX;
                 SqlCommand cmd = cnx.CreateCommand();
-
                 cmd.CommandText = "SELECT id, nom, prenom, tel, mail FROM dbo.Formateur";
-
                 SqlDataReader lecteur = cmd.ExecuteReader();
                 while (lecteur.Read())
                 {
@@ -182,6 +182,7 @@ namespace ItechSupEDT.Outils
 
                     listeFormateurs.Add(new Formateur(nom, prenom, mail, tel, null, id));
                 }
+                lecteur.Close();
             }
             catch (Exception e)
             {
@@ -217,6 +218,7 @@ namespace ItechSupEDT.Outils
 
                     listeSalles.Add(new Salle(nom, capacite, id));
                 }
+                lecteur.Close();
             }
             catch (Exception e)
             {

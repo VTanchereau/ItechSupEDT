@@ -12,6 +12,14 @@ namespace ItechSupEDT.Modele
         private List<Formation> lstFormations;
         private List<Session> lstSessions;
         private List<Formateur> lstFormateurs;
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public String Nom
         {
             get { return this.nom; }
@@ -32,12 +40,13 @@ namespace ItechSupEDT.Modele
             get { return this.lstFormateurs; }
             set { this.lstFormateurs = value; }
         }
-        public Matiere(String _nom)
+        public Matiere(String _nom, int id = 0)
         {
             this.Nom = _nom;
             this.LstSessions = new List<Session>();
             this.LstFormateurs = new List<Formateur>();
             this.lstFormations = new List<Formation>();
+            this._id = id;
         }
 
         public String getNom()

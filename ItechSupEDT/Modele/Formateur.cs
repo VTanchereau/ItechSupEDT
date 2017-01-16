@@ -54,16 +54,14 @@ namespace ItechSupEDT.Modele
         }
         public Formateur(String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere = null, int id =0)
         {
-            /*if (_lstMatiere.Count < 1)
-            {
-                throw new FormateurException("Un formateur doit avoir au moins une matière.");
-            }*/
+            
             this.Nom = _nom;
             this.Prenom = _prenom;
             this.Mail = _mail;
             this.Telephone = _telephone;
             this.LstMatiere = _lstMatiere;
             this.LstSessions = new List<Session>();
+            this._id = id;
         }
         public float NbHeuresTravaillees(DateTime _dateDebut, DateTime _dateFin)
         {

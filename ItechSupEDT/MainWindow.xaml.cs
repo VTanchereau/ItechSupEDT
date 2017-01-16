@@ -93,17 +93,19 @@ namespace ItechSupEDT
 
         private void mi_ajout_cours_Click(object sender, RoutedEventArgs e)
         {
-            List<Nameable> Nameable_lstMatiere = new List<Nameable>();
-            foreach (Matiere mat in DataLoader.ChargerMatieres())
-            {
-                Nameable_lstMatiere.Add((Nameable)mat);
-            }
+            /* List<Nameable> Nameable_lstMatiere = new List<Nameable>();
+             foreach (Matiere mat in DataLoader.ChargerMatieres())
+             {
+                 Nameable_lstMatiere.Add((Nameable)mat);
+             }*/
 
-            List<Promotion> lstPromotions = DataLoader.ChargerPromotions();
-            List<Formateur> lstFormateurs = DataLoader.ChargerFormateurs();
-            List<Salle> lstSalles = DataLoader.ChargerSalle();
 
-            AjoutCours ajoutCours = new AjoutCours(Nameable_lstMatiere);
+            List<Matiere> listeMatieres = DataLoader.ChargerMatieres();
+            List<Promotion> listePromotions = DataLoader.ChargerPromotions();
+            List<Formateur> listeFormateurs = DataLoader.ChargerFormateurs();
+            List<Salle> listeSalles = DataLoader.ChargerSalle();
+
+            AjoutCours ajoutCours = new AjoutCours(listeMatieres, listeFormateurs, listePromotions, listeSalles);
             this.Ajout.Content = ajoutCours;
 
             

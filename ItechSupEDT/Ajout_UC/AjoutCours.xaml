@@ -18,19 +18,19 @@
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Formateurs :" Margin="10,10,0,10"/>
-            <ComboBox x:Name="cb_lstFormateurs" Margin="10,10,0,10"/>
+            <ComboBox x:Name="cb_listeFormateurs" Margin="10,10,0,10"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Promotions :" Margin="10,10,0,10"/>
-            <ComboBox x:Name="cb_lstPromotions" Margin="10,10,0,10"/>
+            <ComboBox x:Name="cb_listePromotions" Margin="10,10,0,10"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Salles :" Margin="38,10,0,10"/>
-            <ComboBox x:Name="cb_lstSalles" Margin="10,10,0,10"/>
+            <ComboBox x:Name="cb_listeSalles" Margin="10,10,0,10"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Matieres :" Margin="20,10,0,10"/>
-            <ComboBox x:Name="cb_lstMatieres" Margin="10,10,0,10"/>
+            <ComboBox x:Name="cb_listeMatieres" Margin="10,10,0,10"/>
         </StackPanel>
         <Button Content="Ajouter" x:Name="btn_ajout" Width="80" Click="btn_ajout_Click" Margin="20"></Button>
     </StackPanel>

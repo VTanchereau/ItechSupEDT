@@ -31,9 +31,12 @@ namespace ItechSupEDT.Outils
 
         private Connexion()
         {
-            this._SQLcnx = new SqlConnection();
-            _SQLcnx.ConnectionString="Data Source=DESKTOP-VJ22J29\\SQLEXPRESS;Initial Catalog=GestionEDT;Integrated Security=True";
-            _SQLcnx.Open();
+           
+                this._SQLcnx = new SqlConnection();
+                _SQLcnx.ConnectionString = "Data Source=DESKTOP-VJ22J29\\SQLEXPRESS;Initial Catalog=GestionEDT;Integrated Security=True";
+                _SQLcnx.Open();
+           
+            
         }
 
       

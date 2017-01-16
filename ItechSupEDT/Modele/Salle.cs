@@ -8,37 +8,38 @@ namespace ItechSupEDT.Modele
 {
     public class Salle : Destinataire 
     {
-        private String nom;
-        private int capacite;
-        private List<Session> lstSessions;
-        private int id;
+        private String _nom;
+        private int _capacite;
+        private List<Session> _lstSessions;
+        private int _id;
 
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public String Nom
         {
-            get { return this.nom; }
-            set { this.nom = value; }
+            get { return this._nom; }
+            set { this._nom = value; }
         }
         public int Capacite
         {
-            get { return this.capacite; }
-            set { this.capacite = value; }
+            get { return this._capacite; }
+            set { this._capacite = value; }
         }
         public List<Session> LstSessions
         {
-            get { return this.lstSessions; }
-            set { this.lstSessions = value; }
+            get { return this._lstSessions; }
+            set { this._lstSessions = value; }
         }
         public Salle(String _nom, int _capacite, int id = 0)
         {
-            this.Nom = _nom;
-            this.Capacite = _capacite;
-            this.LstSessions = new List<Session>();
+            this._nom = _nom;
+            this._capacite = _capacite;
+            this._lstSessions = new List<Session>();
+            this._id = id;
         }
         public bool EstDisponible(DateTime _dateDebut, DateTime _dateFin)
         {

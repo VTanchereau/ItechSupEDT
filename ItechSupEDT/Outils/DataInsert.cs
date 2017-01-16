@@ -152,6 +152,34 @@ namespace ItechSupEDT.Outils
 
         }
 
+        public static void AjouterCours(DateTime dateDebut, DateTime dateFin, Promotion promotion, Matiere matiere, Salle salle, Formateur formateur)
+        {
+            Session session = new Session(dateDebut, dateFin, promotion, matiere , salle, formateur);
+            try
+            {
+                cnx = Connexion.getInstance().SQL_CNX;
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = " INSERT INTO dbo.Cours(dateDebut,dateFin, id_formateur, id_promotion, id_salle, id_matiere)"+
+                                   "VALUES (@dateDebut, @dateFin, @idFormateur, @idPromotion, @idSalle, @idMatiere);";
+
+                AjouterParametres(cmd, "dateDebut", SqlDbType.SmallDateTime, dateDebut);
+                AjouterParametres(cmd, "dateFin", SqlDbType.SmallDateTime, dateFin);
+                AjouterParametres(cmd, "idFormateur", SqlDbType.Int, formateur.Id);
+                AjouterParametres(cmd, "idPromotion", SqlDbType.Int, promotion.Id);
+                AjouterParametres(cmd, "idSalle", SqlDbType.Int, salle.Id);
+                AjouterParametres(cmd, "idMatiere", SqlDbType.Int, matiere.Id);
+               
+
+                cmd.Connection = cnx;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception error)
+            {
+                throw new Exception(error.Message);
+            }
+
+        }
+
         private static void AjouterParametres(SqlCommand cmd, String column, SqlDbType type, Object value)
         {
             cmd.CommandType = CommandType.Text;
