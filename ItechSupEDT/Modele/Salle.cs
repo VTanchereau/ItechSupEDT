@@ -38,6 +38,17 @@ namespace ItechSupEDT.Modele
             this.Capacite = _capacite;
             this.ListSessions = new List<Session>();
         }
+        public bool EstDisponible(DateTime _dateDebut, DateTime _dateFin)
+        {
+            foreach (Session session in this.ListSessions)
+            {
+                if (session.IsInConflict(_dateDebut, _dateFin))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         List<Session> Destinataire.GetSessions(DateTime _dateDebut, DateTime _dateFin)
         {
             List<Session> listSessions = new List<Session>();

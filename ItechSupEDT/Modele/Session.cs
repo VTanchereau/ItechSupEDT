@@ -56,18 +56,6 @@ namespace ItechSupEDT.Modele
         }
         public Session(DateTime _dateDebut, DateTime _dateFin, Promotion _promo, Matiere _matiere, Salle _salle, Formateur _formateur)
         {
-            if (EstDisponible(_promo.ListSessions, _dateDebut, _dateFin))
-            {
-                throw new SessionException("La promotion n'est pas disponible.");
-            }
-            if (EstDisponible(_salle.ListSessions, _dateDebut, _dateFin))
-            {
-                throw new SessionException("La salle n'est pas disponible.");
-            }
-            if (EstDisponible(_formateur.ListSessions, _dateDebut, _dateFin))
-            {
-                throw new SessionException("Le formateur n'est pas disponible.");
-            }
             this.DateDebut = _dateDebut;
             this.DateFin = _dateFin;
             this.Promotion = _promo;
@@ -76,19 +64,16 @@ namespace ItechSupEDT.Modele
             this.Formateur = _formateur;
         }
 
-        public bool EstDisponible(List<Session> listSessions, DateTime _dateDebut, DateTime _dateFin)
+        public bool IsInConflict(DateTime _dateDebut, DateTime _dateFin)
         {
-            bool disponible = true;
-            foreach (Session session in listSessions)
+            bool conflit = false;
+            bool conflitDebut = (_dateDebut > this.DateDebut) && (_dateDebut < this.DateFin);
+            bool conflitFin = (_dateFin > this.DateDebut) && (_dateFin < this.DateFin);
+            if (conflitDebut || conflitFin)
             {
-                bool conflitDebut = (_dateDebut > session.DateDebut) && (_dateDebut < session.DateFin);
-                bool conflitFin = (_dateFin > session.DateDebut) && (_dateFin < session.DateFin);
-                if (conflitDebut || conflitFin)
-                {
-                    disponible = false;
-                }
+                conflit = true;
             }
-            return disponible;
+            return conflit;
         }
 
         public class SessionException : Exception
