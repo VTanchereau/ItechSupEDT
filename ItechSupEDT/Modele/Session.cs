@@ -56,12 +56,46 @@ namespace ItechSupEDT.Modele
         }
         public Session(DateTime _dateDebut, DateTime _dateFin, Promotion _promo, Matiere _matiere, Salle _salle, Formateur _formateur)
         {
+            if (EstDisponible(_promo.ListSessions, _dateDebut, _dateFin))
+            {
+                throw new SessionException("La promotion n'est pas disponible.");
+            }
+            if (EstDisponible(_salle.ListSessions, _dateDebut, _dateFin))
+            {
+                throw new SessionException("La salle n'est pas disponible.");
+            }
+            if (EstDisponible(_formateur.ListSessions, _dateDebut, _dateFin))
+            {
+                throw new SessionException("Le formateur n'est pas disponible.");
+            }
             this.DateDebut = _dateDebut;
             this.DateFin = _dateFin;
             this.Promotion = _promo;
             this.Matiere = _matiere;
             this.Salle = _salle;
             this.Formateur = _formateur;
+        }
+
+        public bool EstDisponible(List<Session> listSessions, DateTime _dateDebut, DateTime _dateFin)
+        {
+            bool disponible = true;
+            foreach (Session session in listSessions)
+            {
+                bool conflitDebut = (_dateDebut > session.DateDebut) && (_dateDebut < session.DateFin);
+                bool conflitFin = (_dateFin > session.DateDebut) && (_dateFin < session.DateFin);
+                if (conflitDebut || conflitFin)
+                {
+                    disponible = false;
+                }
+            }
+            return disponible;
+        }
+
+        public class SessionException : Exception
+        {
+            public SessionException(string message) : base(message)
+            {
+            }
         }
     }
 }
